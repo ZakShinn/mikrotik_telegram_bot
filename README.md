@@ -1,115 +1,116 @@
 
 # MikroTik Script: Telegram Bot
 
-_Script_ ini digunakan untuk mengontrol MikroTik Anda hanya dengan menggunakan sosial media Telegram. Terdapat banyak perintah untuk memantau, mengubah _hotspot_, menghapus _user hotspot_, menambahkan akun _hotspot_ baru, mengubah _password user hotspot_, dan lain-lain.
+_Script_ này được sử dụng để điều khiển MikroTik của bạn chỉ bằng cách sử dụng phương tiện truyền thông xã hội Telegram. Có nhiều lệnh để giám sát, thay đổi _hotspot_, xóa người dùng _hotspot_, thêm tài khoản _hotspot_ mới, thay đổi _mật khẩu người dùng _hotspot_, v.v.
 
-# Daftar Isi
-- [Disclaimer](#disclaimer)
-- [Riwayat Versi](#riwayat-versi)
-- [Instalasi](#instalasi)
-- [Perintah-Perintah, Parameter, dan Fungsinya](#perintah-perintah-parameter-dan-fungsinya)
-- [Sumber](#sumber)
+# Danh sách nội dung
+- [Tuyên bố miễn trừ trách nhiệm](#disclaimer)
+- [Lịch sử phiên bản](#riwayat-versi)
+- [Cài đặt](#instalasi)
+- [Lệnh, Tham số và Hàm](#perintah-perintah-parameter-dan-fungsinya)
+- [Nguồn](#sumber)
 
-# Disclaimer
-_Script_ ini bersifat _open-source_. Anda dapat memodifikasi, menambah, ataupun mengurangi isi dari _script_ ini selama tidak melanggar ketentuan yang berlaku dalam lisensi _MIT_. _Script_ ini **TIDAK ADA GARANSI** selama Anda menggunakannya. Jika Anda mengalami kendala saat instalasi atau penggunaan _script_ ini, harap didiskusikan dan jelaskan bagaimana masalah tersebut terjadi melalui fitur [**Issues**](https://github.com/dwichan0905/telegram_bot/issues).
+# Tuyên bố miễn trừ trách nhiệm
+_Script_ này là _mã nguồn mở_. Bạn có thể sửa đổi, thêm hoặc bớt nội dung của _script_ này miễn là nó không vi phạm các điều khoản trong giấy phép _MIT_. _Script_ này **KHÔNG CÓ BẢO HÀNH** khi bạn sử dụng nó. Nếu bạn gặp bất kỳ sự cố nào khi cài đặt hoặc sử dụng _script_ này, vui lòng thảo luận và giải thích cách sự cố xảy ra thông qua tính năng [**Sự cố**](https://github.com/dwichan0905/telegram_bot/issues).
 
-# Kontribusi
-Kontribusi pada _repository_ ini hanya terbatas pada MikroTik Script dan Dokumentasi saja. Anda dapat berkontribusi dengan cara _Fork repository ini_, membuat _branch_ baru, lakukan perubahan, dan lakukan _Pull Request_ ke _repository_ ini. Deskripsikan apa saja yang Anda tambahkan dan apa yang Anda ubah di dalam _repository_ ini. Jangan lupa untuk menuliskan script bantuan di ```tg_cmd_help``` untuk membantu apabila pengguna script ini lupa dengan perintah yang harus ia tuliskan..
+# Sự đóng góp
+Những đóng góp cho kho lưu trữ này chỉ giới hạn ở MikroTik Scripts và Documentation. Bạn có thể đóng góp bằng cách Fork kho lưu trữ này, tạo nhánh mới, thực hiện thay đổi và gửi Yêu cầu kéo tới kho lưu trữ này. Hãy mô tả những gì bạn đã thêm và những gì bạn đã thay đổi trong _kho lưu trữ_ này. Đừng quên viết tập lệnh trợ giúp trong ```tg_cmd_help``` để trợ giúp nếu người dùng tập lệnh này quên lệnh cần viết.
 
-# Riwayat Versi
-#### 1.3.1 (27 Oktober 2020)
-- menambahkan perintah ``/monitoring`` yang berfungsi untuk mengamati transfer rate dan received rate dari interface, juga bisa untuk mengamati penggunaan CPU serta RAM
-- menambah perintah ``/stop`` untuk menghentikan proses monitoring yang sedang berjalan di telegram
+# Lịch sử phiên bản
+#### 1.3.1 (27 tháng 10 năm 2020)
+- thêm lệnh ``/monitoring`` có chức năng theo dõi tốc độ truyền và tốc độ nhận từ giao diện và cũng có thể được sử dụng để theo dõi mức sử dụng CPU và RAM.
+- thêm lệnh ``/stop`` để dừng quá trình giám sát hiện đang chạy trên Telegram
 video: [YouTube](https://www.youtube.com/watch?v=0HEuqgMZVp4)
 
-#### 1.3 (8 Oktober 2020)
-- mengeluarkan setiap script ke dalam versi teks agar bisa dibaca langsung tanpa harus melakukan import ke mikrotik
-- menambah fungsi lowercase `func_lowercase`
-- modifikasi perintah hotspot, menambahkan fungsi lowercase supaya jika ada parameter yang menggunakan huruf kapital tetap bisa terbaca (misalkan ada user yang mengetikkan `/hotspot SesSion CoUnT` maka akan bisa terbaca dan bot akan mengirimkan balasan)
-- menghapus `tg_cmd_start` dan `tg_cmd_hi` (penjelasan ada dibawah)
-- menambah alternative command pada tg_getUpdates, apabila user mengetikkan: `/hi`, `/start`, `/hai`, `/halo`, `/hello`, `/bantuan`. Maka, akan menjalankan script `tg_cmd_help`. Dengan kata lain `tg_cmd_help` juga menangani perintah perintah tersebut
-- berlaku juga pada `/hotspot`. Apabila user mengetikkan `/hs` maka akan diarahkan ke `tg_cmd_hotspot`
-- modifikasi tg_cmd_dhcp agar menggunakan fungsi lowercase dan menghapus parameter yang tidak perlu
-- menambah perintah /dhcp lease
-- menambahkan perintah /interface show all
+#### 1.3 (ngày 8 tháng 10 năm 2020)
+- xuất từng tập lệnh thành phiên bản văn bản để có thể đọc trực tiếp mà không cần phải nhập vào Mikrotik
+- thêm hàm viết thường `func_lowercase`
+- sửa đổi lệnh hotspot, thêm một hàm viết thường để nếu có tham số sử dụng chữ in hoa thì vẫn có thể đọc được (ví dụ, nếu người dùng nhập `/hotspot SesSion CoUnT` thì có thể đọc được và bot sẽ gửi một câu trả lời)
+- xóa `tg_cmd_start` và `tg_cmd_hi` (giải thích bên dưới)
+- thêm các lệnh thay thế vào tg_getUpdates, nếu người dùng nhập: `/hi`, `/start`, `/hai`, `/halo`, `/hello`, `/help`. Sau đó, nó sẽ chạy tập lệnh `tg_cmd_help`. Nói cách khác `tg_cmd_help` cũng xử lý các lệnh đó
+- cũng áp dụng cho `/hotspot`. Nếu người dùng nhập `/hs` thì nó sẽ được chuyển hướng đến `tg_cmd_hotspot`
+- sửa đổi tg_cmd_dhcp để sử dụng các hàm viết thường và loại bỏ các tham số không cần thiết
+- thêm lệnh cho thuê /dhcp
+- thêm lệnh `/interface show all`
+  
+#### 1.2 (ngày 11 tháng 8 năm 2019)
+ 1. Đã sửa lỗi khi nhập tập lệnh (lỗi ``đối số mặc định không hợp lệ``)
+ 2. Cập nhật lệnh trên điểm phát sóng:
+ - Thay thế lệnh ``/hotspot users`` bằng ``/hotspot session count``
+ - Thay thế lệnh ``/hotspot showall`` bằng ``/hotspot session showall``
+ - Thêm lệnh mới: ``/hotspot session deauth-by-mac``, ``/hotspot session deauth-by-ip``, và ``/hotspot session deauth-by-user``
+ 3. Sửa lỗi lệnh:
+ - ``/reboot`` hiện có thể được sử dụng để khởi động lại bộ định tuyến (trễ 30 giây)
+ 4. Bổ sung điều kiện mới:
+ - Sau khi khởi động lại, Router sẽ gửi báo cáo qua Telegram rằng nó đã khởi động lại và ghi lại tất cả lý do tại sao nó làm như vậy trong "Nhật ký quan trọng" (trễ 30 giây sau khi Router hoàn tất khởi động lại).
 
-#### 1.2 (11 Agustus 2019)
- 1. Perbaikan _bug_ saat _import script_ (error ``invalid default argument``)
- 2. Pembaruan perintah pada hotspot:
-   - Mengganti perintah ``/hotspot users`` menjadi ``/hotspot session count``
-   - Mengganti perintah ``/hotspot showall`` menjadi ``/hotspot session showall``
-   - Menambah perintah baru: ``/hotspot session deauth-by-mac``, ``/hotspot session deauth-by-ip``, dan ``/hotspot session deauth-by-user``
- 3. Perbaikan perintah:
-   - ``/reboot`` kini dapat digunakan untuk menghidupkan ulang _router_ (_delay_ 30 detik)
- 4. Penambahan kondisi baru:
-   - Setelah _reboot_, _Router_ akan mengirimkan laporan via Telegram bahwa dirinya telah melakukan _reboot_ dan mencatat semua kasus mengapa ia melakukan itu ke dalam "Critical Log" (jeda 30 detik setelah router selesai _reboot_).
+#### 1.1 (8 tháng 8, 2019)
+ 1. Phiên bản đầu tiên
 
-#### 1.1 (8 Agustus 2019)
- 1. Versi pertama
+## Cài đặt
+Trước khi bắt đầu cài đặt, bạn phải có _Mã thông báo truy cập_ cho Telegram Bot và ChatID của nó. Theo [liên kết này (labkom.co.id)](https://labkom.co.id/mikrotik/mikrotik-netwach-monitoring-status-access-point-hotspot-dengan-menggunakan-telegram) để biết hướng dẫn về cách để tạo một bot telegram
+Để cài đặt, vui lòng sao chép hoặc tải xuống kho lưu trữ này, sau đó:
 
-## Instalasi
-Sebelum mulai instalasi, Anda harus memiliki _Access Token_ untuk Bot Telegram dan ChatID nya. Ikuti [link ini (labkom.co.id)](https://labkom.co.id/mikrotik/mikrotik-netwach-monitoring-status-access-point-hotspot-dengan-menggunakan-telegram) untuk paduan cara membuat bot telegram
-Untuk cara menginstalnya, silahkan _clone_ atau _download repository_ ini, lalu:
-
- 1. Ekstrak file ZIP yang sudah Anda _download_ (lewati jika anda _clone repository_ ini)
- 2. _Upload_ file ``telegram_bot.rsc`` ke dalam MikroTik Anda (bisa lewat FileZilla FTP, bisa juga lewat WinBox) dan simpan ke folder utama (root atau /) di MikroTik Anda.
- 3. Setelah itu, buka _Terminal_ MikroTik dan ketikkan perintah berikut:
+ 1. Giải nén tệp ZIP bạn đã tải xuống (bỏ qua nếu bạn đã sao chép kho lưu trữ này)
+ 2. _Tải_ tệp ``telegram_bot.rsc`` lên MikroTik của bạn (có thể thông qua FileZilla FTP, hoặc cũng có thể thông qua WinBox) và lưu vào thư mục chính (root hoặc /) trên MikroTik của bạn.
+ 3. Sau đó, mở MikroTik Terminal và nhập lệnh sau:
  ``import file-name=telegram_bot.rsc``
- 4. Konfigurasikan pengaturan _bot_ nya di ``System > Scripts > tg_config`` dengan mengubah perintah berikut:
- > Isi dengan Access Token Bot Telegram Anda:
-   ``"botAPI"="xxxxxx:xxxxxxxx-xxxxxxx"`` 
+ 4. Cấu hình cài đặt _bot_ trong ``System > Scripts > tg_config`` bằng cách thay đổi lệnh sau:
+ > Điền mã thông báo truy cập Telegram Bot của bạn:
+ ``"botAPI"="xxxxxx:xxxxxxxxx-xxxxxxx"``
 
- > Isi dengan ChatID Telegram Anda:
-    ``defaultChatID"="xxxxxxxxxx"``
-    
-> Isi dengan beberapa ChatID Anda, bisa personal, bisa grup. Pisahkan dengan tanda koma:
-  ``"trusted"="xxxxxxxxxx, xxxxxxxxx, -xxxxxxxxx"``
+ > Điền Telegram ChatID của bạn:
+ ``defaultChatID"="xxxxxxxxx"``
+
+> Điền một số ChatID của bạn, có thể là ChatID cá nhân hoặc nhóm. Phân cách bằng dấu phẩy:
+ ``"trusted"="xxxxxxxxxx, xxxxxxxxxx, -xxxxxxxxx"``
+
+ Sau đó lưu cấu hình.
   
-  Lalu simpan konfigurasinya.
-  
-  5. Selesai!
+ 5. Xong!
 
-## Perintah-Perintah, Parameter, dan Fungsinya
-Ketikkan perintah berikut pada kolom _chatting_ Anda dengan _bot_ Telegram Anda. Setiap _parameter_ yang dimasukkan, dipisahkan dengan menggunakan spasi, misalnya ``/interface show``.
+## Lệnh, Tham số và Chức năng của chúng
+Nhập lệnh sau vào cột _chatting_ bằng _bot_ Telegram của bạn. Mỗi _tham số_ được nhập vào được phân tách bằng một dấu cách, ví dụ ``/interface show``.
 
-| Perintah | Parameter | Fungsi | Contoh |
+| Câu lệnh | Tham số | Chức năng | Ví dụ |
 |-----------|--------------|-------|-----|
-| ``/help`` | | Menampilkan daftar fungsi yang dapat dieksekusi | |
-| ``/start`` | | Menampilkan daftar fungsi yang dapat dieksekusi | |
-| ``/cpu`` | | Menampilkan Router ID, Load CPU, Uptime, dan total RAM yang terpakai | |
-| ``/dhcp`` | ``lease`` | menampilkan seluruh detail pada DHCP Lease| ``/dhcp lease`` |
-| ``/dhcp`` | ``client release <interface>`` | Merelease dhcp client pada interface tertentu| ``/dhcp client release ether1`` |
-| ``/interface`` | ``show`` | Menampilkan status terhubungnya antar port Ethernet di MikroTik | ``/interface show`` |
-| ``/interface`` | ``show all`` | Menampilkan status terhubungnya seluruh interface di MikroTik | ``/interface show all`` |
-| ``/hotspot`` | ``help`` | Menampilkan detail bantuan untuk perintah `/hotspot` | ``/hotspot help`` |
-| ``/hotspot`` | ``session count`` | Menampilkan jumlah user yang sedang aktif | ``/hotspot session count`` |
-| ``/hotspot`` | ``session showall`` | Menampilkan seluruh detail user yang sedang aktif mulai dari Username sampai Uptime (kecuali password) | ``/hotspot session showall`` |
-| ``/hotspot`` | ``session deauth-by-user <username>`` | Mencabut _session_ perangkat berdasarkan Username | ``/hotspot session deauth-by-user telecomadmin`` |
-| ``/hotspot`` | ``session deauth-by-ip <ip>`` | Mencabut _session_ perangkat berdasarkan Alamat IP | ``/hotspot session deauth-by-ip 192.168.1.2`` |
-| ``/hotspot`` | ``session deauth-by-mac <mac address>`` | Mencabut _session_ perangkat berdasarkan Alamat MAC | ``/hotspot session deauth-by-mac AB:CD:EF:01:23:45`` |
-| ``/hotspot`` | ``add <username> <password>`` | Menambahkan user hotspot baru | ``/hotspot add telecomadmin admintelecom`` |
-| ``/hotspot`` | ``delete <username>`` | Menghapus user hotspot secara permanen | ``/hotspot delete telecomadmin`` |
-| ``/hotspot`` | ``disable <username>`` | Mematikan atau menonaktifkan user hotspot | ``/hotspot disable telecomadmin`` |
-| ``/hotspot`` | ``enable <username>`` | Mengaktifkan user hotspot yang dinonaktifkan | ``/hotspot enable telecomadmin`` |
-| ``/hotspot`` | ``change-password <username> <password baru>`` | Mengubah password user hotspot | ``/hotspot change-password telecomadmin p4ssw0rdny4`` |
-| ``/ping`` | | Melakukan ping ke DNS Google | ``/ping`` |
-| ``/monitoring`` | ``interface <interface>`` | Melakukan monitoring terhadap interface | ``/monitoring interface wlan1`` |
-| ``/monitoring`` | ``cpu`` | Melakukan monitoring terhadap penggunaan Cpu pada router | ``/monitoring cpu`` |
-| ``/monitoring`` | ``ram`` | Melakukan monitoring terhadap penggunaan ram/memory pada router | ``/monitoring ram`` |
-| ``/monitoring`` | ``memory`` | Melakukan monitoring terhadap penggunaan ram/memory pada router | ``/monitoring memory`` |
-| ``/ping`` | ``to <ip address>`` | Melakukan ping ke alamat IP tertentu | ``/ping to 127.0.0.1`` |
-| ``/public`` | | Menampilkan Dynamic DNS dan Public IP pada MikroTik Anda | ``/public`` |
-| ``/enablehotspot`` | | Mengaktifkan seluruh fungsi hotspot | ``/enablehotspot`` |
-| ``/disablehotspot`` | | Menonaktifkan seluruh fungsi hotspot | ``/disablehotspot`` |
-| ``/forceupdateddns`` | | Memperbarui Dynamic DNS secara paksa | ``/forceupdateddns`` |
-| ``/reboot`` | | Menghidupkan ulang MikroTik (jeda 30 detik sebelum menghidupkan ulang) | ``/reboot`` |
+| ``/help`` | | Hiển thị danh sách các hàm có thể thực thi. | |
+| ``/start`` | | Hiển thị danh sách các hàm có thể thực thi. | |
+| ``/cpu`` | | Hiển thị ID bộ định tuyến, tải CPU, thời gian hoạt động và tổng RAM đã sử dụng. | |
+| ``/dhcp`` | ``lease`` | hiển thị tất cả các chi tiết trên DHCP Lease (có thể lỗi nếu nhiều thiết bị) | ``/dhcp lease`` |
+| ``/dhcp`` | ``client release <interface>`` | Giải phóng máy khách dhcp trên một giao diện cụ thể| ``/dhcp client release ether1`` |
+| ``/interface`` | ``show`` | Hiển thị trạng thái kết nối giữa các cổng Ethernet trên MikroTik | ``/interface show`` |
+| ``/interface`` | ``show all`` | Hiển thị trạng thái kết nối của tất cả các giao diện trên MikroTik | ``/interface show all`` |
+| ``/hotspot`` | ``help`` | Hiển thị trợ giúp chi tiết cho một lệnh `/hotspot` | ``/hotspot help`` |
+| ``/hotspot`` | ``session count`` | Hiển thị số lượng người dùng đang hoạt động | ``/hotspot session count`` |
+| ``/hotspot`` | ``session showall`` | Hiển thị tất cả thông tin chi tiết của người dùng đang hoạt động bắt đầu từ Tên người dùng đến Thời gian hoạt động (trừ mật khẩu) | ``/hotspot session showall`` |
+| ``/hotspot`` | ``session deauth-by-user <username>`` | Thu hồi thiết bị _session_ theo Tên người dùng | ``/hotspot session deauth-by-user telecomadmin`` |
+| ``/hotspot`` | ``session deauth-by-ip <ip>`` | Thu hồi thiết bị _session_ theo Địa chỉ IP | ``/hotspot session deauth-by-ip 192.168.1.2`` |
+| ``/hotspot`` | ``session deauth-by-mac <mac address>`` | Thu hồi thiết bị _session_ theo Địa chỉ MAC | ``/hotspot session deauth-by-mac AB:CD:EF:01:23:45`` |
+| ``/hotspot`` | ``add <username> <password>`` | Thêm người dùng điểm phát sóng mới | ``/hotspot add telecomadmin admintelecom`` |
+| ``/hotspot`` | ``delete <username>`` | Xóa vĩnh viễn người dùng điểm phát sóng | ``/hotspot delete telecomadmin`` |
+| ``/hotspot`` | ``disable <username>`` | Tắt hoặc vô hiệu hóa người dùng điểm phát sóng | ``/hotspot disable telecomadmin`` |
+| ``/hotspot`` | ``enable <username>`` |Bật người dùng điểm phát sóng bị vô hiệu hóa | ``/hotspot enable telecomadmin`` |
+| ``/hotspot`` | ``change-password <username> <password baru>`` | Thay đổi mật khẩu người dùng điểm phát sóng | ``/hotspot change-password telecomadmin p4ssw0rdny4`` |
+| ``/ping`` | | Ping Google DNS | ``/ping`` |
+| ``/monitoring`` | ``interface <interface>`` | Giám sát interface | ``/monitoring interface wlan1`` |
+| ``/monitoring`` | ``cpu`` | Theo dõi việc sử dụng CPU trên bộ định tuyến | ``/monitoring cpu`` |
+| ``/monitoring`` | ``ram`` | Theo dõi việc sử dụng RAM trên bộ định tuyến | ``/monitoring ram`` |
+| ``/monitoring`` | ``memory`` | Theo dõi việc sử dụng bộ nhớ trên bộ định tuyến | ``/monitoring memory`` |
+| ``/ping`` | ``to <ip address>`` | Ping một địa chỉ IP cụ thể | ``/ping to 127.0.0.1`` |
+| ``/public`` | | Hiển thị DNS động và IP công cộng trên MikroTik của bạn | ``/public`` |
+| ``/enablehotspot`` | | Bật tất cả các chức năng điểm phát sóng | ``/enablehotspot`` |
+| ``/disablehotspot`` | | Tắt tất cả các chức năng điểm phát sóng | ``/disablehotspot`` |
+| ``/forceupdateddns`` | | Buộc cập nhật DNS động | ``/forceupdateddns`` |
+| ``/reboot`` | | Khởi động lại MikroTik (tạm dừng 30 giây trước khi khởi động lại) | ``/reboot`` |
 
-> **Catatan**: untuk dapat menjalankan perintah ``/disablehotspot``,  ``/enablehotspot``, dan ``/interface show``, silakan Anda konfigurasikan sendiri hotspot mana yang akan di "otomatis" kan di script ``tg_cmd_disablehotspot``, ``tg_cmd_enablehotspot``, dan ethernet mana saja yang akan ditampilkan di ``tg_cmd_interface``.
+> **Lưu ý**: để có thể chạy các lệnh ``/disablehotspot``, ``/enablehotspot`` và ``/interface show``, vui lòng tự cấu hình điểm phát sóng nào sẽ được "tự động hóa" trong tập lệnh ` ``tg_cmd_disablehotspot``, ``tg_cmd_enablehotspot`` và ethernet nào sẽ được hiển thị trong ``tg_cmd_interface``.
 
-# Sumber
+# Nguồn
 
  - [Labkom](https://labkom.co.id)
- - [Forum MikroTik (EN)](https://forum.mikrotik.com)
- - [Telegram API (EN)](https://api.telegram.org)
-
+ - [Diễn đàn MikroTik (EN)](https://forum.mikrotik.com)
+ - [API Telegram (EN)](https://api.telegram.org)
+ - [Github gốc](https://github.com/dwichan0905/telegram_bot)
+   
 

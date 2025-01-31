@@ -1,0 +1,64 @@
+# tg_cmd_sendsms - Script de gui SMS qua LTE1 va thong bao cho Telegram
+:local send [:parse [/system script get tg_sendMessage source]]
+:global params $params
+:global chatid $chatid
+:global from $from
+
+
+
+# Tach tham so tu tin nhan param1 sdt, param2 la noi dung
+:local param1 [:pick $params 0 [:find $params " "]]
+:local param2 [:pick $params ([:find $params " "]+1) [:len $params]]
+
+
+
+
+# Log cac tham so de kiem tra
+:put ("Received command: $params")
+:put ("param1: $param1")
+:put ("param2: $param2")
+:log warning "nhan tin $param1 gui $param2";
+
+:local myname value=$param1;
+
+:log warning "param1 $param1 param2 $param2 myname $myname";
+
+:if ([:find $param1 "_" -1] > 0) do={
+  :local param1 value="";
+  :for i from=0 to=([:len $myname] -1) step=1 do={
+  :local actualchar value=[:pick $myname $i];
+  :if ($actualchar = "_") do={ :set actualchar value=" " };
+  :log warning "2 param1 $param1 param2 $param2 myname $myname";
+  :set param1 value=($param1.$actualchar);
+  :log info message="1Sau xu ly $param1";
+  
+ }
+ #Thuc hien tiep tuc sau khi xu ly "_"
+ :log info message="Sau xu ly $param1";
+ :local param1 value="$param1";
+ :local text "<b>Nhan tin</b> <code>$param1</code> <b>gui</b> <code>$param2</code>"
+$send chat=$chatid text=$text mode="HTML"
+#Gui SMS
+/tool sms send lte1 $param2 message=$param1;
+# Delay 5 giay
+:delay 5
+/system script run tg_cmd_new-SMS
+:quit 
+};   
+
+
+#Thuc hien tiep tuc truong hop khong co "_"
+
+:local text "<b>Nhan tin</b> <code>$param1</code> <b>gui</b> <code>$param2</code>"
+
+$send chat=$chatid text=$text mode="HTML"
+
+#Gui SMS
+/tool sms send lte1 $param2 message=$param1;
+
+
+# Delay 5 giay
+
+:delay 5
+
+/system script run tg_cmd_new-SMS

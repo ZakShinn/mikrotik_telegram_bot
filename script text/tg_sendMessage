@@ -10,6 +10,23 @@
 :local url "https://api.telegram.org/bot$botID/sendmessage?chat_id=$chatID&text=$text"
 :if ([:len $mode]>0) do={:set url ($url."&parse_mode=$mode")}
 
+:local myname value=$url;
+:local newname value="";
+:if ([:find $myname " " -1] > 0) do={
+ :for i from=0 to=([:len $myname] -1) step=1 do={
+  :local actualchar value=[:pick $myname $i];
+  :if ($actualchar = " ") do={ :set actualchar value="%20" };
+  :set newname value=($newname.$actualchar);
+ }
+ #:log info message="Sau xu ly $newname";
+};  
+
+:local url $newname
+
+
+
+#:log info message=$url;
+
 :local file ($tgStorage."tg_get_updates.txt")
 :local logfile ($tgStorage."tg_fetch_log.txt")
 

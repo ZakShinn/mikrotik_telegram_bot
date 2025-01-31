@@ -1,0 +1,27 @@
+:local send [:parse [/system script get tg_sendMessage source]]
+:put $params
+:put $chatid
+:put $from
+
+:while ([ :len [ /tool/sms/inbox/find ] ] > 0) do={
+    :local Phone [ /tool/sms/inbox/get ([ find ]->0) phone ];
+    :local Messages "";
+    :local Delete ({});  
+    :foreach Sms in=[ /tool/sms/inbox/find where phone=$Phone ] do={
+        :local SmsVal [ /tool/sms/inbox/get $Sms ];
+        :set Messages ($Messages . $SmsVal->"message" . " ");
+        :set Delete ($Delete, $Sms);
+    }
+    
+    :if ([ :len $Messages ] > 0) do={
+        :local text1 ("Gui tu: " . $Phone . " Noi dung: " . $Messages);
+        :log warning "$text1";
+        :local text ("<b>Gui tu:</b> <i>" . $Phone . "</i> <b>_Noi dung:</b> <i><code>" . $Messages . "</code></i>");
+
+        $send chat=$chatid text=$text mode="HTML";
+
+        :foreach Sms in=$Delete do={
+            /tool/sms/inbox/remove $Sms;
+        }
+    }
+}

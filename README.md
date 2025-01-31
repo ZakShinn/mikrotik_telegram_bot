@@ -17,6 +17,12 @@ _Script_ này là _mã nguồn mở_. Bạn có thể sửa đổi, thêm hoặc
 Những đóng góp cho kho lưu trữ này chỉ giới hạn ở MikroTik Scripts và Documentation. Bạn có thể đóng góp bằng cách Fork kho lưu trữ này, tạo nhánh mới, thực hiện thay đổi và gửi Yêu cầu kéo tới kho lưu trữ này. Hãy mô tả những gì bạn đã thêm và những gì bạn đã thay đổi trong _kho lưu trữ_ này. Đừng quên viết tập lệnh trợ giúp trong ```tg_cmd_help``` để trợ giúp nếu người dùng tập lệnh này quên lệnh cần viết.
 
 # Lịch sử phiên bản
+#### 1.4.1 (31 tháng 01 năm 2024)
+- bổ sung các chứng năng hỗ trợ wwan, sim
+- thêm lệnh ``/sms`` có chức năng kiểm tra tin nhắn đã nhận (các tin nhắn từ 1 số sẽ tự gộp lại).
+- thêm lệnh ``/sendsms``or ``/send`` có chức năng gửi tin nhắn đến một số hoặc tổng đài và nhận được thông báo tin nhắn gửi đi và nội dung nhận được.
+- thêm lệnh ``/check101`` có chức năng gửi USSD kiểm tra số tiền trong tài khoản, có thể thay đổi USSD khác trong file ([**tg_cmd_check_*101#**](https://github.com/ZakShinn/telegram_bot/blob/master/script%20text/tg_cmd_check_*101%23)).
+
 #### 1.3.1 (27 tháng 10 năm 2020)
 - thêm lệnh ``/monitoring`` có chức năng theo dõi tốc độ truyền và tốc độ nhận từ giao diện và cũng có thể được sử dụng để theo dõi mức sử dụng CPU và RAM.
 - thêm lệnh ``/stop`` để dừng quá trình giám sát hiện đang chạy trên Telegram
@@ -103,6 +109,10 @@ Nhập lệnh sau vào cột _chatting_ bằng _bot_ Telegram của bạn. Mỗi
 | ``/disablehotspot`` | | Tắt tất cả các chức năng điểm phát sóng | ``/disablehotspot`` |
 | ``/forceupdateddns`` | | Buộc cập nhật DNS động | ``/forceupdateddns`` |
 | ``/reboot`` | | Khởi động lại MikroTik (tạm dừng 30 giây trước khi khởi động lại) | ``/reboot`` |
+| ``/sendsms`` or ``/send`` | | Gửi tin nhắn SMS đến một số | ``/sendsms Text_text Phone`` |
+| ``/check101`` | | Gửi USSD *101# kiểm tra tài khoản | ``/check101`` |
+| ``/sms`` | | Lệnh kiểm tra các SMS đã nhận được, các SMS cùng số sẽ gộp lại | ``/sms`` |
+
 
 > **Lưu ý**: để có thể chạy các lệnh ``/disablehotspot``, ``/enablehotspot`` và ``/interface show``, vui lòng tự cấu hình điểm phát sóng nào sẽ được "tự động hóa" trong tập lệnh ` ``tg_cmd_disablehotspot``, ``tg_cmd_enablehotspot`` và ethernet nào sẽ được hiển thị trong ``tg_cmd_interface``.
 

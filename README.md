@@ -4,11 +4,11 @@
 _Script_ này được sử dụng để điều khiển MikroTik của bạn chỉ bằng cách sử dụng phương tiện truyền thông xã hội Telegram. Có nhiều lệnh để giám sát, thay đổi _hotspot_, xóa người dùng _hotspot_, thêm tài khoản _hotspot_ mới, thay đổi _mật khẩu người dùng _hotspot_, v.v.
 
 # Danh sách nội dung
-- [Tuyên bố miễn trừ trách nhiệm](#disclaimer)
-- [Lịch sử phiên bản](#riwayat-versi)
-- [Cài đặt](#instalasi)
-- [Lệnh, Tham số và Hàm](#perintah-perintah-parameter-dan-fungsinya)
-- [Nguồn](#sumber)
+- [Tuyên bố miễn trừ trách nhiệm](#Tuyên-bố-miễn-trừ-trách-nhiệm)
+- [Lịch sử phiên bản](#Lịch-sử-phiên-bản)
+- [Cài đặt](#Cài-đặt)
+- [Lệnh, Tham số và Hàm](#Lệnh,-Tham-số-và-Hàm)
+- [Nguồn](#Nguồn)
 
 # Tuyên bố miễn trừ trách nhiệm
 _Script_ này là _mã nguồn mở_. Bạn có thể sửa đổi, thêm hoặc bớt nội dung của _script_ này miễn là nó không vi phạm các điều khoản trong giấy phép _MIT_. _Script_ này **KHÔNG CÓ BẢO HÀNH** khi bạn sử dụng nó. Nếu bạn gặp bất kỳ sự cố nào khi cài đặt hoặc sử dụng _script_ này, vui lòng thảo luận và giải thích cách sự cố xảy ra thông qua tính năng [**Sự cố**](https://github.com/dwichan0905/telegram_bot/issues).

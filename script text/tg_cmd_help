@@ -13,7 +13,11 @@ MENU TERSEDIA%0A\
 /cpu%0A\
 /interface%0A\
  - show%0A\
+ - show all%0A\
+/dhcp%0A\
+ - lease%0A\
 /hotspot%0A\
+ - help%0A\
  - session%0A\
    > count%0A\
    > showall%0A\
@@ -27,10 +31,18 @@ MENU TERSEDIA%0A\
  - setprofile <username> <profile>%0A\
  - change-password <username> <password>%0A\
 /ping to <ip>%0A\
+/monitoring%0A\
+ - interface <interface>%0A\
+ - cpu%0A\
+ - ram%0A\
+ - memory%0A\
 /public%0A\
 /enablehotspot%0A\
 /disablehotspot%0A\
 /forceupdateddns%0A\
+/sms%0A\
+/sendsms Text <Phone>%0A\
+/check101%0A\
 /reboot"
  
 $send chat=$chatid text=$text mode="Markdown"
